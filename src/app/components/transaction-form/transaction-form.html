@@ -1,0 +1,16 @@
+<form (ngSubmit)="submit()" class="flex gap-2 mb-6">
+
+    <input type="text" placeholder="Descrição" [(ngModel)]="description" name="description" class="flex-1 border rounded px-2 py-1" />
+
+    <input type="number" placeholder="Valor" [(ngModel)]="amount" name="amount" class="w-24 border rounded px-2 py-1" />
+
+    <select [(ngModel)]="type" name="type" class="border rounded px-2 py-1">
+        <option value="entrada" >Entrada</option>
+        <option value="saida">Saída</option>
+    </select>
+
+    <button type="submit" class="bg-blue-600 text-white px-4 rounded">
+        Adicionar
+    </button>
+    
+</form>

@@ -1,0 +1,7 @@
+<ul class="space-y-2">
+    <li *ngFor="let t of transactions" class="flex justify-between p-2 rounded border" [class.border-green-500]="t.type === 'entrada'" [class.border-red-500]="t.type === 'saida'">
+
+    <span>{{ t.description }}</span>
+    <span>{{ t.amount }}</span>
+    </li>
+</ul>
