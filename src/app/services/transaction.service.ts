@@ -1,32 +1,20 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { collection, addDoc, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
+import { Transaction } from "../models/transaction.model";
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class TransactionService {
-    private apiUrl = '/api/transactions';
+    private collectionRef = collection(db, 'transactions');
 
-    constructor(private http: HttpClient) { }
-
-    getTransactions(): Observable<any> {
-        return this.http.get(this.apiUrl);
+    async getAll(): Promise<Transaction[]> {
+        const snapshot = await getDocs(this.collectionRef);
+        return snapshot.docs.map(doc => doc.data() as Transaction);
     }
 
-    getTransaction(id: string): Observable<any> {
-        return this.http.get(`${this.apiUrl}/${id}`);
-    }
-
-    createTransaction(data: any): Observable<any> {
-        return this.http.post(this.apiUrl, data);
-    }
-
-    updateTransaction(id: string, data: any): Observable<any> {
-        return this.http.put(`${this.apiUrl}/${id}`, data);
-    }
-
-    deleteTransaction(id: string): Observable<any> {
-        return this.http.delete(`${this.apiUrl}/${id}`);
+    async add(transaction: Transaction) {
+        await addDoc(this.collectionRef, transaction);
     }
 }
