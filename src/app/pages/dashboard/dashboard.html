@@ -1,0 +1,29 @@
+<h1>Controle Financeiro</h1>
+
+<form (ngSubmit)="addTransaction">
+    <input type="text" placeholder="Descrição" [(ngModel)]="description" name="description" />
+    <input type="number" placeholder="Valor" [(ngModel)]="amount" name="amount" />
+
+    <select [(ngModel)]="type" name="type">
+        <option value="entrada">Entrada</option>
+        <option value="saida">Saída</option>
+    </select>
+
+    <button type="submit">Adicionar</button>
+</form>
+
+<hr />
+
+<ul>
+  <li *ngFor="let t of transactions">
+    {{ t.description }} —
+    {{ t.amount | currency:'BRL' }} —
+    <strong>{{ t.type }}</strong>
+  </li>
+</ul>
+
+<hr />
+
+<p>Entradas: {{ totalEntradas | currency:'BRL' }}</p>
+<p>Saídas: {{ totalSaidas | currency:'BRL' }}</p>
+<p><strong>Saldo: {{ saldo | currency:'BRL' }}</strong></p>
